@@ -3,7 +3,6 @@ const imgURL = import.meta.env.VITE_IMG
 const bannerSize = import.meta.env.VITE_BANNER_SIZE
 
 export const HighlightMovieContainer = styled.section`
-    border: 1px solid black;
     width: 100%;
     height: 500px;
     display: flex;
@@ -45,7 +44,7 @@ export const Img = styled.div<ImgProps>`
     background-size: cover;
     
     height: 100%;
-    background-color: aqua;
+    background-color: ${({theme}) => theme.colors.body};
     width: 80%;
 `;
 
