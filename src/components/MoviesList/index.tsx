@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react"
 import { SearchContext } from "../../contexts/SearchContext";
-import { MovieCard, MoviesListContainer } from "./style";
+import { ErrorMsg, MovieCard, MoviesListContainer } from "./style";
 
 const apiConfig = import.meta.env.VITE_API_CONFIG
 const searchURL = import.meta.env.VITE_SEARCH
@@ -9,14 +9,14 @@ const searchURL = import.meta.env.VITE_SEARCH
 interface ApiResponse {
     title: string,
     overview: string,
-    backdrop_path: string,
+    poster_path: string,
     release_date: string,
     id: number
 }
 
-export function MoviesList(){
+export function MoviesList() {
 
-    const {searchParams} = useContext(SearchContext)
+    const { searchParams } = useContext(SearchContext)
 
     const [movies, setMovies] = useState<ApiResponse[]>([])
 
@@ -26,7 +26,7 @@ export function MoviesList(){
             const data = response.data.results
             console.log(data)
             setMovies(data)
-        } catch(error) {
+        } catch (error) {
             console.log(error)
         }
     }
@@ -35,13 +35,18 @@ export function MoviesList(){
     }, [searchParams])
 
     return (
-        <MoviesListContainer>
-        {movies.map((movie) => {
-            return <MovieCard
-                key={movie.id}
-
-            >{movie.title}</MovieCard>
-        })}
-        </MoviesListContainer>
+        <>
+            {movies.length > 0
+                ? <MoviesListContainer>
+                    {movies.map((movie) => {
+                        return <MovieCard
+                            key={movie.id}
+                            poster_path={movie.poster_path}
+                        />
+                    })}
+                </MoviesListContainer>
+                : <ErrorMsg>Nenhum resultado foi encontrado...</ErrorMsg>
+            }
+        </>
     )
 }

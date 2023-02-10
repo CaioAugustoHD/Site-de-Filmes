@@ -8,4 +8,8 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'Lato', sans-serif;
         list-style: none;
     }
+
+    body {
+        background-color: ${({theme}) => theme.colors.body};
+    }
 `;
