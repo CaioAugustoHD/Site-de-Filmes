@@ -42,7 +42,9 @@ export function MoviesList() {
                         return <MovieCard
                             key={movie.id}
                             poster_path={movie.poster_path}
-                        />
+                        >
+                            <span>{!movie.poster_path ? movie.title : null}</span>
+                        </MovieCard>
                     })}
                 </MoviesListContainer>
                 : <ErrorMsg>Nenhum resultado foi encontrado...</ErrorMsg>

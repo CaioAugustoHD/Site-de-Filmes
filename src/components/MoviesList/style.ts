@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import noImage from "../../assets/no-image.png"
 const imgURL = import.meta.env.VITE_IMG
 const PosterSize = import.meta.env.VITE_POSTER_SIZE
 
@@ -19,13 +20,25 @@ interface MovieCardProps {
 }
 
 export const MovieCard = styled.div<MovieCardProps>`
-    background-image: url(${imgURL}${PosterSize}${(props: MovieCardProps) => props.poster_path});
+    background-image: ${(props) => props.poster_path
+        ? `url(${imgURL}${PosterSize}${props.poster_path})`
+        : `url(${noImage})`
+    };
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-
     width: 185px;
     height: 264px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+        text-align: center;
+        max-width: 91%;
+        font-weight: bold;
+        color: ${({theme}) => theme.colors.body}
+    }
 `;
 
 export const ErrorMsg = styled.span`
