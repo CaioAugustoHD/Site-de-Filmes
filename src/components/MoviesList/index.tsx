@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react"
+import { Link } from "react-router-dom";
 import { SearchContext } from "../../contexts/SearchContext";
 import { ErrorMsg, MovieCard, MoviesListContainer } from "./style";
 
@@ -39,12 +40,16 @@ export function MoviesList() {
             {movies.length > 0
                 ? <MoviesListContainer>
                     {movies.map((movie) => {
-                        return <MovieCard
+                        return <Link
                             key={movie.id}
-                            poster_path={movie.poster_path}
+                            to={`/movie?id=${movie.id}`}
                         >
-                            <span>{!movie.poster_path ? movie.title : null}</span>
-                        </MovieCard>
+                            <MovieCard
+                                poster_path={movie.poster_path}
+                            >
+                                <span>{!movie.poster_path ? movie.title : null}</span>
+                            </MovieCard>
+                        </Link>
                     })}
                 </MoviesListContainer>
                 : <ErrorMsg>Nenhum resultado foi encontrado...</ErrorMsg>
